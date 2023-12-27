@@ -104,6 +104,8 @@ let startBtnClick = () => {
     imgDivs.forEach( eachImgDiv =>{
         let randomSrc = generateRandomImgSrc()
         eachImgDiv.setAttribute('background-img',randomSrc)
+        eachImgDiv.classList.add(randomSrc)
+        setTimeout(() => eachImgDiv.classList.remove(randomSrc), 3000)
     })
     startBox.classList.add('hidden')
     gameBox.classList.remove('hidden')
