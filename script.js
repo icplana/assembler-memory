@@ -24,7 +24,9 @@ let users = [
 
 let playingUser = {
     username: '',
-    score: ''
+    score: '',
+    hardMode: false,
+    
 }
 
 let imgsSrcArr = [
@@ -105,12 +107,18 @@ let startBtnClick = () => {
         let randomSrc = generateRandomImgSrc()
         eachImgDiv.setAttribute('background-img',randomSrc)
         eachImgDiv.classList.add(randomSrc)
-        setTimeout(() => eachImgDiv.classList.remove(randomSrc), 3000)
+        setTimeout(() => {
+            eachImgDiv.classList.remove(randomSrc)
+            imgDivs.forEach( eachImgDiv => eachImgDiv.addEventListener('click', imgDivClick ))
+            initialTime = new Date().getTime()
+        }, 3000)
     })
     startBox.classList.add('hidden')
     gameBox.classList.remove('hidden')
 
-    initialTime = new Date().getTime()
+    
+
+    playingUser.hardMode = document.querySelector('.hardModeInput').checked
 }
 
 let imgDivClick = (e) => {
@@ -148,6 +156,19 @@ let imgDivClick = (e) => {
             }
             
         } else{
+            if( playingUser.hardMode ){
+                imgDivs.forEach( eachImgDiv => eachImgDiv.removeEventListener('click', imgDivClick ))
+                finishTime = new Date().getTime()
+                timeSpend = finishTime - initialTime
+                playingUser.score = timeSpend/1000 + ' seconds'
+                
+
+                winLoseTitle.textContent = 'You Lost!'
+                winLoseTimer.textContent = 'You lost in ' + playingUser.score
+
+                gameBox.classList.add('hidden')
+                resultsBox.classList.remove('hidden')
+            }
             imgDivs.forEach( eachImgDiv => eachImgDiv.removeEventListener('click', imgDivClick ))
             setTimeout(() => {
                 memoryState.firstImgDiv.addEventListener('click', imgDivClick)
@@ -182,7 +203,7 @@ let imgDivClick = (e) => {
         gameBox.classList.add('hidden')
         resultsBox.classList.remove('hidden')
     }
-    
+   
 }
 
 
@@ -196,7 +217,6 @@ let playAgainBtnClick = () => {
 document.addEventListener('DOMContentLoaded',() => {
     printUsersResults()
     startBtn.addEventListener('click', startBtnClick)
-    imgDivs.forEach( eachImgDiv => eachImgDiv.addEventListener('click', imgDivClick ))
     playAgainBtn.addEventListener('click', playAgainBtnClick)
 })
 
