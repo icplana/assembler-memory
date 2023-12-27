@@ -1,0 +1,158 @@
+
+
+
+*{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.leftGrid{
+    grid-column: 0 1;
+}
+
+.rightGrid{
+    grid-column: 1 2;
+}
+
+.startBox{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem
+}
+
+.inputUsername{
+    padding: .6rem 1.2rem;
+    border-radius: .4rem;
+    border: 1px solid black
+}
+
+.startBtn{
+    border: none;
+    background-color: black;
+    color:white;
+    padding: 1rem 3rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    cursor:pointer;
+}
+
+.startGameBox{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.startGameBtn{
+    border: none;
+    background-color: black;
+    color:white;
+    padding: 1rem 3rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    cursor:pointer;
+}
+
+
+
+.gameBox{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.wordContainer{
+    text-align: center;
+    width: 100%;
+    font-size: 2rem;
+    padding-top: 5rem;
+}
+
+.hangLetter{
+    display: inline-block;
+    color: transparent;
+    border-bottom: 2px solid black;
+    margin-right: .3rem;
+    width: 1.6rem;
+}
+
+.letterBtn{
+    border: none;
+    background-color: black;
+    color:white;
+    padding: .5rem .9rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    cursor:pointer;
+    margin-bottom: .3rem;
+}
+
+.resultsBox{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem
+}
+
+.playAgainBtn{
+    border: none;
+    background-color: black;
+    color:white;
+    padding: 1rem 3rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hidden{
+    display: none;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.border-bottom{
+    border-bottom: 1px solid black;
+}
+
+.width-full{
+    width: 100%;
+}
+
+.flex{
+    display: flex;
+}
+
+.black-color{
+    color:black;
+}
+
+.red-color{
+    color:red;
+}

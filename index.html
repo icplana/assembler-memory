@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <main class="gridContainer">
+        <div class="leftGrid">
+
+            <div class="startBox ">
+                <h3>Chose an username</h3>
+                <form action="">                    
+                    <input class="inputUsername" type="text">
+                </form>
+                <button class="startBtn">Start</button>
+            </div>
+    
+            <div class="startGameBox hidden">
+                <button class="startGameBtn">Start Game</button>
+            </div>
+
+           
+    
+            <div class="gameBox hidden">
+                <div class="flex">
+                    <div class="hangManBox">
+                        <img src="assets/imgs/hangman1.png" alt="hangManImg" class="hangManImg">
+                        <p><span class="attempsLeftSpan">7</span> attempts left</p>
+                    </div>
+                    <div class="wordContainer">
+    
+                    </div>
+                </div>
+
+                <div>
+                    <button class="letterBtn">A</button>
+                    <button class="letterBtn">B</button>
+                    <button class="letterBtn">C</button>
+                    <button class="letterBtn">D</button>
+                    <button class="letterBtn">E</button>
+                    <button class="letterBtn">F</button>
+                    <button class="letterBtn">G</button>
+                    <button class="letterBtn">H</button>
+                    <button class="letterBtn">I</button>
+                    <button class="letterBtn">J</button>
+                    <button class="letterBtn">K</button>
+                    <button class="letterBtn">L</button>
+                    <button class="letterBtn">M</button>
+                    <button class="letterBtn">N</button>
+                    <button class="letterBtn">O</button>
+                    <button class="letterBtn">P</button>
+                    <button class="letterBtn">Q</button>
+                    <button class="letterBtn">R</button>
+                    <button class="letterBtn">S</button>
+                    <button class="letterBtn">T</button>
+                    <button class="letterBtn">U</button>
+                    <button class="letterBtn">V</button>
+                    <button class="letterBtn">W</button>
+                    <button class="letterBtn">X</button>
+                    <button class="letterBtn">Y</button>
+                    <button class="letterBtn">Z</button>                    
+                </div>
+            </div>
+    
+            <div class="resultsBox hidden">
+                <h3 class="winLoseTitle"></h3>
+                <p class="winLoseTimer"></p>
+                <button class="playAgainBtn">Play Again</button>
+            </div>
+
+        </div>
+
+        <div class="rightGrid userScoresBox">
+            <h3>User Scores</h3>
+            
+            
+        </div>
+
+        
+
+    </main>
+    
+</body>
+<script src="script.js"></script>
+</html>
