@@ -42,24 +42,6 @@
     cursor:pointer;
 }
 
-.startGameBox{
-    display: flex;
-    justify-content: center;
-    margin: 1rem;
-}
-
-.startGameBtn{
-    border: none;
-    background-color: black;
-    color:white;
-    padding: 1rem 3rem;
-    font-weight: bold;
-    border-radius: 1rem;
-    cursor:pointer;
-}
-
-
-
 .gameBox{
     display:flex;
     flex-direction: column;
@@ -67,31 +49,22 @@
     margin: 1rem;
 }
 
-.wordContainer{
-    text-align: center;
-    width: 100%;
-    font-size: 2rem;
-    padding-top: 5rem;
+.memoryImgsGrid{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
+    gap: 1rem;
 }
 
-.hangLetter{
-    display: inline-block;
-    color: transparent;
-    border-bottom: 2px solid black;
-    margin-right: .3rem;
-    width: 1.6rem;
-}
-
-.letterBtn{
-    border: none;
-    background-color: black;
-    color:white;
-    padding: .5rem .9rem;
-    font-weight: bold;
+.imgDiv{
+    background-color: gray;
     border-radius: 1rem;
-    cursor:pointer;
-    margin-bottom: .3rem;
+    cursor: pointer;
+    width: 7rem;
+    height: 7rem;
+    background-size: cover;
 }
+
 
 .resultsBox{
     display:flex;
@@ -108,16 +81,41 @@
     font-weight: bold;
     border-radius: 1rem;
     cursor:pointer;
+    transition: all 2s;
 }
 
 
+.backgroundImg1{
+    background-image: url(assets/imgs/image1.jpg);
+}
 
+.backgroundImg2{
+    background-image: url(assets/imgs/image2.jpeg);
+}
 
+.backgroundImg3{
+    background-image: url(assets/imgs/image3.webp);
+}
 
+.backgroundImg4{
+    background-image: url(assets/imgs/image4.jpg);
+}
 
+.backgroundImg5{
+    background-image: url(assets/imgs/image5.webp);
+}
 
+.backgroundImg6{
+    background-image: url(assets/imgs/image6.jpg);
+}
 
+.backgroundImg7{
+    background-image: url(assets/imgs/image7.jpg);
+}
 
+.backgroundImg8{
+    background-image: url(assets/imgs/image8.jpg);
+}
 
 
 

@@ -22,47 +22,46 @@ let users = [
     },
 ]
 
-let words = ['banana', 'elephant', 'computer', 'jazz', 'xylophone', 'quasar', 'jungle', 'python', 'oxygen', 'vortex', 'guitar', 'zeppelin', 'zebra', 'kangaroo', 'oasis', 'mango', 'cucumber', 'rocket', 'whiskey', 'jigsaw', 'rhythm', 'symphony', 'penguin', 'quokka']
-let playingWord = ''
-let playingWordArray
-
-let attempsLeft = 7
-let hangManImgSrcsArr = ['assets/imgs/hangman8.png','assets/imgs/hangman7.png','assets/imgs/hangman6.png','assets/imgs/hangman5.png','assets/imgs/hangman4.png','assets/imgs/hangman3.png','assets/imgs/hangman2.png','assets/imgs/hangman1.png']
-
 let playingUser = {
     username: '',
     score: ''
 }
 
+let imgsSrcArr = [
+    'backgroundImg1','backgroundImg1',
+    'backgroundImg2','backgroundImg2',
+    'backgroundImg3','backgroundImg3',
+    'backgroundImg4','backgroundImg4',
+    'backgroundImg5','backgroundImg5',
+    'backgroundImg6','backgroundImg6',
+    'backgroundImg7','backgroundImg7',
+    'backgroundImg8','backgroundImg8',
+    
+]
+
 let initialTime
+let finishTime
+let timeSpend
+
+let memoryState = {
+    firstImgClass: undefined,
+    secondImgClass: undefined,
+    firstImgDiv: undefined,
+    secondImgDiv: undefined,
+}
 
 let startBtn = document.querySelector('.startBtn')
-let startGameBtn = document.querySelector('.startGameBtn')
-let letterBtns = document.querySelectorAll('.letterBtn')
 let playAgainBtn = document.querySelector('.playAgainBtn')
 
 let startBox = document.querySelector('.startBox')
-let startGameBox = document.querySelector('.startGameBox')
 let gameBox = document.querySelector('.gameBox')
 let resultsBox = document.querySelector('.resultsBox')
 let userScoresBox = document.querySelector('.userScoresBox')
-let wordGeneratedBox = document.querySelector('.wordContainer')
 
-let attempsLeftSpan = document.querySelector('.attempsLeftSpan')
-let hangManImg = document.querySelector('.hangManImg')
+let imgDivs = document.querySelectorAll('.pendingImgs')
 let winLoseTitle = document.querySelector('.winLoseTitle')
 let winLoseTimer = document.querySelector('.winLoseTimer')
 
-
-let getAllIndexs = (array, element) => {
-    let arrayOfIndexs = []
-    for (i = 0; i < array.length ; i++ ){
-        if( array[i] === element ){
-            arrayOfIndexs.push(i)
-        }
-    }
-    return arrayOfIndexs
-}
 
 let printUsersResults = () => {
     let newDiv = document.createElement('div')
@@ -87,6 +86,14 @@ let printUsersResults = () => {
 
 }
 
+let generateRandomImgSrc = () => {
+    let randomIndex = Math.floor(Math.random()*imgsSrcArr.length)
+    let randomSrc = imgsSrcArr[randomIndex]
+    imgsSrcArr = [...imgsSrcArr.slice(0,randomIndex),...imgsSrcArr.slice(randomIndex + 1)]
+    return randomSrc
+
+}
+
 let startBtnClick = () => {
     if( document.querySelector('.inputUsername').value.length === 0 ){
         alert('Enter username')
@@ -94,83 +101,91 @@ let startBtnClick = () => {
     }
     startBtn.removeEventListener('click', startBtnClick)
     playingUser.username = document.querySelector('.inputUsername').value
-    startBox.classList.add('hidden')
-    startGameBox.classList.remove('hidden')
-
-}
-let startGameBtnClick = () => {
-    startGameBtn.removeEventListener('click', startBtnClick)
-    startGameBox.classList.add('hidden')
-    gameBox.classList.remove('hidden')
-    playingWord = words[Math.floor(Math.random()*words.length)]
-    playingWordArray = playingWord.split('')
-    let newDocumentFragment = document.createDocumentFragment()
-    playingWordArray.forEach( letter =>{
-        let newSpan = document.createElement('span')
-        newSpan.textContent = letter
-        newSpan.classList.add('hangLetter')
-        newDocumentFragment.appendChild(newSpan)
+    imgDivs.forEach( eachImgDiv =>{
+        let randomSrc = generateRandomImgSrc()
+        eachImgDiv.setAttribute('background-img',randomSrc)
     })
-    wordGeneratedBox.appendChild(newDocumentFragment)
+    startBox.classList.add('hidden')
+    gameBox.classList.remove('hidden')
 
     initialTime = new Date().getTime()
-    
 }
-let letterBtnClick = (e) => {
-   let letter = e.target.textContent.toLowerCase()
-    e.target.classList.add('hidden')
-   if( playingWordArray.includes(letter)){
-        let allLettersBlack = true
-        let allLetterSpans = document.querySelectorAll('.hangLetter')
-        allLetterSpans.forEach( eachHangLetter => {
-            if( eachHangLetter.textContent === letter ) eachHangLetter.classList.add('black-color')
-            if ( eachHangLetter.classList.contains('black-color')){}else{ allLettersBlack = false }
-        })
-        if (allLettersBlack) { 
-            winLoseTitle.textContent = 'You Won!'
-            let finishTime = new Date().getTime()
-            let timeSpend = finishTime - initialTime
-            playingUser.score = timeSpend/1000 + ' seconds'
-            winLoseTimer.textContent = 'You won in ' + timeSpend/1000 + ' seconds'
-            users.push(playingUser)
-            printUsersResults()
-            gameBox.classList.add('hidden')
-            resultsBox.classList.remove('hidden')
-            letterBtns.forEach( eachLetterBtn =>{
-                eachLetterBtn.removeEventListener('click', letterBtnClick)
-            })
-        }
-        
-   } else{
-    attempsLeft--
-    attempsLeftSpan.textContent = attempsLeft
-    hangManImg.setAttribute('src', hangManImgSrcsArr[attempsLeft])
 
-    if( attempsLeft === 0 ){ 
-        winLoseTitle.textContent = 'You Lost!'
-        let finishTime = new Date().getTime()
-        let timeSpend = finishTime - initialTime
-        playingUser.score = timeSpend/1000 + ' seconds'
-        winLoseTimer.textContent = 'You lost in ' + timeSpend/1000 + ' seconds'
-        let allLetterSpans = document.querySelectorAll('.hangLetter')
-        allLetterSpans.forEach( eachHangLetter => {
-            if( !eachHangLetter.classList.contains('black-color') ) eachHangLetter.classList.add('red-color')
-        })
-        letterBtns.forEach( eachLetterBtn =>{
-            eachLetterBtn.removeEventListener('click', letterBtnClick)
-        })
-        setTimeout(() => {
-            gameBox.classList.add('hidden')
-            resultsBox.classList.remove('hidden')
-        },2500)
+let imgDivClick = (e) => {
+
+    if( memoryState.firstImgClass === undefined ){    
+
+        memoryState.firstImgClass = e.target.getAttribute('background-img')
+        memoryState.firstImgDiv = e.target
+
+        memoryState.firstImgDiv.classList.add(memoryState.firstImgClass)
+
+        memoryState.firstImgDiv.removeEventListener('click', imgDivClick)
+        
     }
+
+    else if( memoryState.firstImgClass !== undefined ){
+
+        memoryState.secondImgClass = e.target.getAttribute('background-img')
+        memoryState.secondImgDiv = e.target
+
+        memoryState.secondImgDiv.classList.add(memoryState.secondImgClass)
+
+        if (memoryState.firstImgClass === memoryState.secondImgClass ){
+
+            memoryState.firstImgDiv.classList.remove('pendingImgs')
+            memoryState.secondImgDiv.classList.remove('pendingImgs')
+
+            memoryState.secondImgDiv.removeEventListener('click', imgDivClick)
+
+            memoryState = {
+                firstImgClass: undefined,
+                secondImgClass: undefined,
+                firstImgDiv: undefined,
+                secondImgDiv: undefined,
+            }
+            
+        } else{
+            imgDivs.forEach( eachImgDiv => eachImgDiv.removeEventListener('click', imgDivClick ))
+            setTimeout(() => {
+                memoryState.firstImgDiv.addEventListener('click', imgDivClick)
+
+                memoryState.firstImgDiv.classList.remove( memoryState.firstImgClass )
+                memoryState.secondImgDiv.classList.remove( memoryState.secondImgClass )
+
+                memoryState = {
+                    firstImgClass: undefined,
+                    secondImgClass: undefined,
+                    firstImgDiv: undefined,
+                    secondImgDiv: undefined,
+                }
+                
+                imgDivs.forEach( eachImgDiv => eachImgDiv.addEventListener('click', imgDivClick ))
+            },1300)
+        }
+    }
+
+    imgDivs = document.querySelectorAll('.pendingImgs')
+    if( imgDivs.length === 0 ) {
+        imgDivs.forEach( eachImgDiv => eachImgDiv.removeEventListener('click', imgDivClick ))
+        finishTime = new Date().getTime()
+        timeSpend = finishTime - initialTime
+        playingUser.score = timeSpend/1000 + ' seconds'
+        users.push(playingUser)
+        printUsersResults()    
+
+        winLoseTitle.textContent = 'You won!'
+        winLoseTimer.textContent = 'You won in ' + playingUser.score
+
+        gameBox.classList.add('hidden')
+        resultsBox.classList.remove('hidden')
+    }
+    
 }
 
 
    
-    
 
-}
 let playAgainBtnClick = () => {
     location.reload()
 }
@@ -179,10 +194,7 @@ let playAgainBtnClick = () => {
 document.addEventListener('DOMContentLoaded',() => {
     printUsersResults()
     startBtn.addEventListener('click', startBtnClick)
-    startGameBtn.addEventListener('click', startGameBtnClick)
-    letterBtns.forEach( eachLetterBtn =>{
-        eachLetterBtn.addEventListener('click', letterBtnClick)
-    })
+    imgDivs.forEach( eachImgDiv => eachImgDiv.addEventListener('click', imgDivClick ))
     playAgainBtn.addEventListener('click', playAgainBtnClick)
 })
 
